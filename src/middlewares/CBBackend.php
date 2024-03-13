@@ -36,11 +36,13 @@ class CBBackend
                     return redirect()->action('\crocodicstudio\crudbooster\controllers\StatisticBuilderController@getDashboard');
                 } elseif ($menus->type == 'Module') {
                     $module = CRUDBooster::first('cms_moduls', ['path' => $menus->path]);
-                    return redirect()->action( $module->controller.'@getIndex');
+                   // return redirect()->action( $module->controller.'@getIndex');
+                    return redirect('admin/'. $module->path  );
                 } elseif ($menus->type == 'Route') {
                     $action = str_replace("Controller", "Controller@", $menus->path);
                     $action = str_replace(['Get', 'Post'], ['get', 'post'], $action);
-                    return redirect()->action($action);
+                    //return redirect()->action($action);
+                    return redirect( $menus->path );
                 } elseif ($menus->type == 'Controller & Method') {
                     return redirect()->action($menus->path);
                 } elseif ($menus->type == 'URL') {

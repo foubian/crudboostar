@@ -72,6 +72,7 @@ class AdminController extends CBController
         $email = Request::input("email");
         $password = Request::input("password");
         $users = DB::table(config('crudbooster.USER_TABLE'))->where("email", $email)->first();
+        $filnivo = DB::table('infopedagog')->where("student_id",$users->id)->where("current_year",1)->first();
 
         if (\Hash::check($password, $users->password)) {
             $priv = DB::table("cms_privileges")->where("id", $users->id_cms_privileges)->first();
@@ -86,6 +87,8 @@ class AdminController extends CBController
             Session::put('admin_privileges_roles', $roles);
             Session::put("admin_privileges", $users->id_cms_privileges);
             Session::put('admin_privileges_name', $priv->name);
+            Session::put('fyl', $filnivo->filyir_id);
+            Session::put('nivo', $filnivo->nivo);
             Session::put('admin_lock', 0);
             Session::put('theme_color', $priv->theme_color);
             Session::put("appname", get_setting('appname'));

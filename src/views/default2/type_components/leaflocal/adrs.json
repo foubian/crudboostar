@@ -1,0 +1,34 @@
+{
+    "address": {
+        "Match_addr": "Municipalitè d'Agadir",
+        "LongLabel": "Municipalitè d'Agadir, Avenue Prince Héritier Sidi Mohamed, Nouveau Talborjt, Agadir, Agadir Ida ou Tanan, MAR",
+        "ShortLabel": "Municipalitè d'Agadir",
+        "Addr_type": "POI",
+        "Type": "Government Office",
+        "PlaceName": "Municipalitè d'Agadir",
+        "AddNum": "",
+        "Address": "Avenue Prince Héritier Sidi Mohamed",
+        "Block": "",
+        "Sector": "",
+        "Neighborhood": "Agadir",
+        "District": "",
+        "City": "Agadir",
+        "MetroArea": "",
+        "Subregion": "Agadir Ida ou Tanan",
+        "Region": "Souss - Massa",
+        "RegionAbbr": "",
+        "Territory": "",
+        "Postal": "",
+        "PostalExt": "",
+        "CntryName": "Maroc",
+        "CountryCode": "MAR"
+    },
+    "location": {
+        "x": -9.59834,
+        "y": 30.42065,
+        "spatialReference": {
+            "wkid": 4326,
+            "latestWkid": 4326
+        }
+    }
+}

@@ -1,4 +1,4 @@
-<footer class="main-footer">
+<footer class="main-footer" style="color: white;background-color: #222d32;">
     <!-- To the right -->
     <div class="pull-{{ cbLang('right') }} hidden-xs">
         {{ cbLang('powered_by') }} {{Session::get('appname')}}
