@@ -186,7 +186,7 @@
                         @endforeach
                     @endif
                 @endif
-                @if (!$button_bulk_action && (($button_delete && CRUDBooster::isDelete()) || $button_selected))
+                @if ($button_bulk_action && (($button_delete && CRUDBooster::isDelete()) || $button_selected))
 
                     <div class="selected-action" style="display:inline-block;position:relative;bottom: 4px;">
                         <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown"
