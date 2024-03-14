@@ -180,7 +180,7 @@
 
             <tfoot>
                 <tr>
-                    <?php if(!$button_bulk_action):?>
+                    <?php if($button_bulk_action):?>
                     <th>&nbsp;</th>
                     <?php endif;?>
 
