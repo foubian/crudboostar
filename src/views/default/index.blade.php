@@ -204,42 +204,34 @@
                             </div>
                             
                             @endif
-
-
-                        <!--end-dropdown-menu-->
-                    </div>
-                    <!--end-selected-action-->
-
-                @endif
-                @endif
-                @if ($button_bulk_action && (($button_delete && CRUDBooster::isDelete()) || $button_selected))
-
-                    <div class="selected-action" style="display:inline-block;position:relative;bottom: 4px;">
-                        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown"
-                            aria-expanded="false"><i class='fa fa-check-square-o'></i>
-                            {{ cbLang('button_selected_action') }}
-                            <span class="fa fa-caret-down"></span></button>
-                        <ul class="dropdown-menu">
-                            @if ($button_delete && CRUDBooster::isDelete())
-                                <li><a href="javascript:void(0)" data-name='delete'
-                                        title='{{ cbLang('action_delete_selected') }}'><i class="fa fa-trash"></i>
-                                        {{ cbLang('action_delete_selected') }}</a></li>
-                            @endif
-
                             @if ($button_selected)
                                 @foreach ($button_selected as $button)
-                                    <li><a href="javascript:void(0)" data-name='{{ $button['name'] }}'
-                                            title='{{ $button['label'] }}'><i class="fa fa-{{ $button['icon'] }}"></i>
-                                            {{ $button['label'] }}</a></li>
+                                <div class="hex" style="width: 34.64px;height: 40px;background:DarkGray;">
+                                <div class="hex-background" style="width: 30.64px;height: 36px;  background: white;">
+                                    <div class="overlayhex selected-action">
+                                        <a class="iconhex spin-icon"  href="javascript:void(0)" data-name='{{ $button['name'] }}'
+                                            title='{{ $button['label'] }}'>
+                                            <span class="spin-icon">
+                                                <i class="fa-solid fa-{{ $button['icon'] }}" style="color: #e66100;"></i>
+                                            </span>
+                                        </a>
+
+                                    </div>
+                                </div>
+                            </div>
+                                   
                                 @endforeach
                             @endif
 
-                        </ul>
+
+
                         <!--end-dropdown-menu-->
                     </div>
                     <!--end-selected-action-->
 
                 @endif
+                @endif
+              
             </div>
             <!--end-pull-left-->
             <div class="box-tools pull-{{ cbLang('right') }}"
