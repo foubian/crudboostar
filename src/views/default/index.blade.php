@@ -185,12 +185,29 @@
                             </div>
                         @endforeach
                     @endif
+                    @if ($button_bulk_action && (($button_delete && CRUDBooster::isDelete()) || $button_selected))
+
+                            @if ($button_delete && CRUDBooster::isDelete())
+                                <a href="javascript:void(0)" data-name='delete'
+                                        title='{{ cbLang('action_delete_selected') }}'><i class="fa fa-trash"></i>
+                                        {{ cbLang('action_delete_selected') }}</a>
+                            @endif
+
+                            @if ($button_selected)
+                                @foreach ($button_selected as $button)
+                                    <a href="javascript:void(0)" data-name='{{ $button['name'] }}'
+                                            title='{{ $button['label'] }}'><i class="fa fa-{{ $button['icon'] }}"></i>
+                                            {{ $button['label'] }}</a>
+                                @endforeach
+                            @endif
+
+                        <!--end-dropdown-menu-->
+                    </div>
+                    <!--end-selected-action-->
+
                 @endif
-<<<<<<< HEAD
+                @endif
                 @if ($button_bulk_action && (($button_delete && CRUDBooster::isDelete()) || $button_selected))
-=======
-                @if (false && $button_bulk_action && (($button_delete && CRUDBooster::isDelete()) || $button_selected))
->>>>>>> b77611e6 (bulk modify)
 
                     <div class="selected-action" style="display:inline-block;position:relative;bottom: 4px;">
                         <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown"
