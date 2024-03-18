@@ -192,7 +192,7 @@
                             <div class="hex" style="width: 34.64px;height: 40px;background:DarkGray;">
                                 <div class="hex-background" style="width: 30.64px;height: 36px;  background: white;">
                                     <div class="overlayhex selected-action">
-                                        <a href="javascript:void(0)" data-name='delete'
+                                        <a class="iconhex spin-icon"  href="javascript:void(0)" data-name='delete'
                                             title='{{ cbLang('action_delete_selected') }}'>
                                             <span class="spin-icon">
                                                 <i class="fa-solid fa-trash" style="color: #e66100;"></i>
