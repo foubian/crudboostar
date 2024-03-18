@@ -39,6 +39,28 @@
                 });
 
             })
+            $('.selected-action a').click(function() {
+                var name = $(this).data('name');
+                $('#form-table input[name="button_name"]').val(name);
+                var title = $(this).attr('title');
+
+
+                Swal.fire({
+                    title: "{{ cbLang('confirmation_title') }}",
+                    text: "{{ cbLang('alert_bulk_action_button') }} " + title + "",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: "#008D4C",
+                    confirmButtonText: "{{ cbLang('confirmation_yes') }}",
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#form-table').submit();
+                    }
+                });
+
+            })
             $('a.selected-action').click(function() {
                 var name = $(this).data('name');
                 $('#form-table input[name="button_name"]').val(name);
