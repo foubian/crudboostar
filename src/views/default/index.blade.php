@@ -212,7 +212,7 @@
                                         <a class="iconhex spin-icon"  href="javascript:void(0)" data-name='{{ $button['name'] }}'
                                             title='{{ $button['label'] }}'>
                                             <span class="spin-icon">
-                                                <i class="fa-solid fa-{{ $button['icon'] }}" style="color: #e66100;"></i>
+                                                <i class="fa-solid fa-{{ $button['icon'] }}" style="color:{{ $button['color'] }};"></i>
                                             </span>
                                         </a>
 
