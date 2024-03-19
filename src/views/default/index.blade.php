@@ -223,68 +223,67 @@
                             @endforeach
                         @endif
 
-
-
-                        <!--end-dropdown-menu-->
+                    @endif
+                    <!--end-dropdown-menu-->
             </div>
             <!--end-selected-action-->
 
-            @endif
-            @endif
-            <div class="box-tools pull-{{ cbLang('right') }}"
-            style="position: relative;">
 
-            @if ($button_filter)
-                <a style="margin-top:-23px" href="javascript:void(0)" id='btn_advanced_filter'
-                    data-url-parameter='{{ $build_query }}' title='{{ cbLang('filter_dialog_title') }}'
-                    class="btn btn-sm btn-default {{ Request::get('filter_column') ? 'active' : '' }}">
-                    <i class="fa fa-filter"></i> {{ cbLang('button_filter') }}
-                </a>
             @endif
+            <div class="box-tools pull-{{ cbLang('right') }}" style="position: relative;">
 
-            <form method='get' style="display:inline-block;width: 260px;" action='{{ Request::url() }}'>
-                <div class="input-group">
-                    <input type="text" name="q" value="{{ Request::get('q') }}"
-                        class="form-control input-sm pull-{{ cbLang('right') }}"
-                        placeholder="{{ cbLang('filter_search') }}" />
-                    {!! CRUDBooster::getUrlParameters(['q']) !!}
-                    <div class="input-group-btn">
-                        @if (Request::get('q'))
-                            <?php
-                            $parameters = Request::all();
-                            unset($parameters['q']);
-                            $build_query = urldecode(http_build_query($parameters));
-                            $build_query = $build_query ? '?' . $build_query : '';
-                            $build_query = Request::all() ? $build_query : '';
-                            ?>
-                            <button type='button' onclick='location.href="{{ CRUDBooster::mainpath() . $build_query }}"'
-                                title="{{ cbLang('button_reset') }}" class='btn btn-sm btn-warning'><i
-                                    class='fa fa-ban'></i></button>
-                        @endif
-                        <button type='submit' class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                @if ($button_filter)
+                    <a style="margin-top:-23px" href="javascript:void(0)" id='btn_advanced_filter'
+                        data-url-parameter='{{ $build_query }}' title='{{ cbLang('filter_dialog_title') }}'
+                        class="btn btn-sm btn-default {{ Request::get('filter_column') ? 'active' : '' }}">
+                        <i class="fa fa-filter"></i> {{ cbLang('button_filter') }}
+                    </a>
+                @endif
+
+                <form method='get' style="display:inline-block;width: 260px;" action='{{ Request::url() }}'>
+                    <div class="input-group">
+                        <input type="text" name="q" value="{{ Request::get('q') }}"
+                            class="form-control input-sm pull-{{ cbLang('right') }}"
+                            placeholder="{{ cbLang('filter_search') }}" />
+                        {!! CRUDBooster::getUrlParameters(['q']) !!}
+                        <div class="input-group-btn">
+                            @if (Request::get('q'))
+                                <?php
+                                $parameters = Request::all();
+                                unset($parameters['q']);
+                                $build_query = urldecode(http_build_query($parameters));
+                                $build_query = $build_query ? '?' . $build_query : '';
+                                $build_query = Request::all() ? $build_query : '';
+                                ?>
+                                <button type='button'
+                                    onclick='location.href="{{ CRUDBooster::mainpath() . $build_query }}"'
+                                    title="{{ cbLang('button_reset') }}" class='btn btn-sm btn-warning'><i
+                                        class='fa fa-ban'></i></button>
+                            @endif
+                            <button type='submit' class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
 
-            <form method='get' id='form-limit-paging' style="display:inline-block" action='{{ Request::url() }}'>
-                {!! CRUDBooster::getUrlParameters(['limit']) !!}
-                <div class="input-group">
-                    <select onchange="$('#form-limit-paging').submit()" name='limit' style="width: 56px;"
-                        class='form-control input-sm'>
-                        <option {{ $limit == 5 ? 'selected' : '' }} value='5'>5</option>
-                        <option {{ $limit == 10 ? 'selected' : '' }} value='10'>10</option>
-                        <option {{ $limit == 20 ? 'selected' : '' }} value='20'>20</option>
-                        <option {{ $limit == 25 ? 'selected' : '' }} value='25'>25</option>
-                        <option {{ $limit == 50 ? 'selected' : '' }} value='50'>50</option>
-                        <option {{ $limit == 100 ? 'selected' : '' }} value='100'>100</option>
-                        <option {{ $limit == 200 ? 'selected' : '' }} value='200'>200</option>
-                    </select>
-                </div>
-            </form>
-            <a class="center-block btn btn-xs spin-icon outline btn-primary">
-                <span> Total : {{ $result->total() }} <i class="fa-solid fa-arrows-down-to-line"></i></span></a>
+                <form method='get' id='form-limit-paging' style="display:inline-block" action='{{ Request::url() }}'>
+                    {!! CRUDBooster::getUrlParameters(['limit']) !!}
+                    <div class="input-group">
+                        <select onchange="$('#form-limit-paging').submit()" name='limit' style="width: 56px;"
+                            class='form-control input-sm'>
+                            <option {{ $limit == 5 ? 'selected' : '' }} value='5'>5</option>
+                            <option {{ $limit == 10 ? 'selected' : '' }} value='10'>10</option>
+                            <option {{ $limit == 20 ? 'selected' : '' }} value='20'>20</option>
+                            <option {{ $limit == 25 ? 'selected' : '' }} value='25'>25</option>
+                            <option {{ $limit == 50 ? 'selected' : '' }} value='50'>50</option>
+                            <option {{ $limit == 100 ? 'selected' : '' }} value='100'>100</option>
+                            <option {{ $limit == 200 ? 'selected' : '' }} value='200'>200</option>
+                        </select>
+                    </div>
+                </form>
+                <a class="center-block btn btn-xs spin-icon outline btn-primary">
+                    <span> Total : {{ $result->total() }} <i class="fa-solid fa-arrows-down-to-line"></i></span></a>
 
-        </div>
+            </div>
 
         </div>
         <!--end-pull-left-->
