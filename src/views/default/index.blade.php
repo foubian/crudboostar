@@ -158,7 +158,7 @@
                                 </div>
                             </div>
                         </div>
-                    @endif 
+                    @endif
                     @if (!empty($index_button))
                         @foreach ($index_button as $ib)
                             <div class="hex" style="width: 34.64px;height: 40px;background:DarkGray;">
@@ -173,9 +173,11 @@
                                             @if ($ib['onLoad']) onLoad='return {{ $ib['onLoad'] }}' @endif>
 
                                             @if ($ib['caption'])
-                                               <strong> <span style="color:{{ (!empty(g('stage')) && strtoupper(g('stage'))!=$ib['caption']) ? 'DarkGray':$ib['color'] }};">{{ $ib['caption'] }}</span> </strong> 
+                                                <strong> <span
+                                                        style="color:{{ !empty(g('stage')) && strtoupper(g('stage')) != $ib['caption'] ? 'DarkGray' : $ib['color'] }};">{{ $ib['caption'] }}</span>
+                                                </strong>
                                             @else
-                                                <i class="{{ $ib['icon'] }} {{ strtoupper(g('filiere'))==$ib['label'] ?' fa-flip' : '' }}"
+                                                <i class="{{ $ib['icon'] }} {{ strtoupper(g('filiere')) == $ib['label'] ? ' fa-flip' : '' }}"
                                                     style="color: {{ $ib['color'] ? $ib['color'] : 'MediumBlue' }}"></i>
                                             @endif
                                         </a>
@@ -187,12 +189,11 @@
                     @endif
                     @if ($button_bulk_action && (($button_delete && CRUDBooster::isDelete()) || $button_selected))
 
-                            @if ($button_delete && CRUDBooster::isDelete())
-
+                        @if ($button_delete && CRUDBooster::isDelete())
                             <div class="hex" style="width: 34.64px;height: 40px;background:DarkGray;">
                                 <div class="hex-background" style="width: 30.64px;height: 36px;  background: white;">
                                     <div class="overlayhex selected-action">
-                                        <a class="iconhex spin-icon"  href="javascript:void(0)" data-name='delete'
+                                        <a class="iconhex spin-icon" href="javascript:void(0)" data-name='delete'
                                             title='{{ cbLang('action_delete_selected') }}'>
                                             <span class="spin-icon">
                                                 <i class="fa-solid fa-trash" style="color: #e66100;"></i>
@@ -202,100 +203,99 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            @endif
-                            @if ($button_selected)
-                                @foreach ($button_selected as $button)
+                        @endif
+                        @if ($button_selected)
+                            @foreach ($button_selected as $button)
                                 <div class="hex" style="width: 34.64px;height: 40px;background:DarkGray;">
-                                <div class="hex-background" style="width: 30.64px;height: 36px;  background: white;">
-                                    <div class="overlayhex selected-action">
-                                        <a class="iconhex spin-icon"  href="javascript:void(0)" data-name='{{ $button['name'] }}'
-                                            title='{{ $button['label'] }}'>
-                                            <span class="spin-icon">
-                                                <i class="fa-solid fa-{{ $button['icon'] }}" style="color:{{ $button['color'] }};"></i>
-                                            </span>
-                                        </a>
+                                    <div class="hex-background" style="width: 30.64px;height: 36px;  background: white;">
+                                        <div class="overlayhex selected-action">
+                                            <a class="iconhex spin-icon" href="javascript:void(0)"
+                                                data-name='{{ $button['name'] }}' title='{{ $button['label'] }}'>
+                                                <span class="spin-icon">
+                                                    <i class="fa-solid fa-{{ $button['icon'] }}"
+                                                        style="color:{{ $button['color'] }};"></i>
+                                                </span>
+                                            </a>
 
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                                   
-                                @endforeach
-                            @endif
+                            @endforeach
+                        @endif
 
 
 
                         <!--end-dropdown-menu-->
-                    </div>
-                    <!--end-selected-action-->
-
-                @endif
-                @endif
-              
             </div>
-            <!--end-pull-left-->
+            <!--end-selected-action-->
+
+            @endif
+            @endif
             <div class="box-tools pull-{{ cbLang('right') }}"
-                style="position: relative;margin-top: -5px;margin-right: -10px">
+            style="position: relative;margin-top: -5px;margin-right: -10px">
 
-                @if ($button_filter)
-                    <a style="margin-top:-23px" href="javascript:void(0)" id='btn_advanced_filter'
-                        data-url-parameter='{{ $build_query }}' title='{{ cbLang('filter_dialog_title') }}'
-                        class="btn btn-sm btn-default {{ Request::get('filter_column') ? 'active' : '' }}">
-                        <i class="fa fa-filter"></i> {{ cbLang('button_filter') }}
-                    </a>
-                @endif
+            @if ($button_filter)
+                <a style="margin-top:-23px" href="javascript:void(0)" id='btn_advanced_filter'
+                    data-url-parameter='{{ $build_query }}' title='{{ cbLang('filter_dialog_title') }}'
+                    class="btn btn-sm btn-default {{ Request::get('filter_column') ? 'active' : '' }}">
+                    <i class="fa fa-filter"></i> {{ cbLang('button_filter') }}
+                </a>
+            @endif
 
-                <form method='get' style="display:inline-block;width: 260px;" action='{{ Request::url() }}'>
-                    <div class="input-group">
-                        <input type="text" name="q" value="{{ Request::get('q') }}"
-                            class="form-control input-sm pull-{{ cbLang('right') }}"
-                            placeholder="{{ cbLang('filter_search') }}" />
-                        {!! CRUDBooster::getUrlParameters(['q']) !!}
-                        <div class="input-group-btn">
-                            @if (Request::get('q'))
-                                <?php
-                                $parameters = Request::all();
-                                unset($parameters['q']);
-                                $build_query = urldecode(http_build_query($parameters));
-                                $build_query = $build_query ? '?' . $build_query : '';
-                                $build_query = Request::all() ? $build_query : '';
-                                ?>
-                                <button type='button'
-                                    onclick='location.href="{{ CRUDBooster::mainpath() . $build_query }}"'
-                                    title="{{ cbLang('button_reset') }}" class='btn btn-sm btn-warning'><i
-                                        class='fa fa-ban'></i></button>
-                            @endif
-                            <button type='submit' class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
-                        </div>
+            <form method='get' style="display:inline-block;width: 260px;" action='{{ Request::url() }}'>
+                <div class="input-group">
+                    <input type="text" name="q" value="{{ Request::get('q') }}"
+                        class="form-control input-sm pull-{{ cbLang('right') }}"
+                        placeholder="{{ cbLang('filter_search') }}" />
+                    {!! CRUDBooster::getUrlParameters(['q']) !!}
+                    <div class="input-group-btn">
+                        @if (Request::get('q'))
+                            <?php
+                            $parameters = Request::all();
+                            unset($parameters['q']);
+                            $build_query = urldecode(http_build_query($parameters));
+                            $build_query = $build_query ? '?' . $build_query : '';
+                            $build_query = Request::all() ? $build_query : '';
+                            ?>
+                            <button type='button' onclick='location.href="{{ CRUDBooster::mainpath() . $build_query }}"'
+                                title="{{ cbLang('button_reset') }}" class='btn btn-sm btn-warning'><i
+                                    class='fa fa-ban'></i></button>
+                        @endif
+                        <button type='submit' class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
                     </div>
-                </form>
+                </div>
+            </form>
 
-                <form method='get' id='form-limit-paging' style="display:inline-block" action='{{ Request::url() }}'>
-                    {!! CRUDBooster::getUrlParameters(['limit']) !!}
-                    <div class="input-group">
-                        <select onchange="$('#form-limit-paging').submit()" name='limit' style="width: 56px;"
-                            class='form-control input-sm'>
-                            <option {{ $limit == 5 ? 'selected' : '' }} value='5'>5</option>
-                            <option {{ $limit == 10 ? 'selected' : '' }} value='10'>10</option>
-                            <option {{ $limit == 20 ? 'selected' : '' }} value='20'>20</option>
-                            <option {{ $limit == 25 ? 'selected' : '' }} value='25'>25</option>
-                            <option {{ $limit == 50 ? 'selected' : '' }} value='50'>50</option>
-                            <option {{ $limit == 100 ? 'selected' : '' }} value='100'>100</option>
-                            <option {{ $limit == 200 ? 'selected' : '' }} value='200'>200</option>
-                        </select>
-                    </div>
-                </form>
-                <a class="center-block btn btn-xs spin-icon outline btn-primary">
-                    <span> Total : {{ $result->total() }} <i class="fa-solid fa-arrows-down-to-line"></i></span></a>
-
-            </div>
-
-            <br style="clear:both" />
+            <form method='get' id='form-limit-paging' style="display:inline-block" action='{{ Request::url() }}'>
+                {!! CRUDBooster::getUrlParameters(['limit']) !!}
+                <div class="input-group">
+                    <select onchange="$('#form-limit-paging').submit()" name='limit' style="width: 56px;"
+                        class='form-control input-sm'>
+                        <option {{ $limit == 5 ? 'selected' : '' }} value='5'>5</option>
+                        <option {{ $limit == 10 ? 'selected' : '' }} value='10'>10</option>
+                        <option {{ $limit == 20 ? 'selected' : '' }} value='20'>20</option>
+                        <option {{ $limit == 25 ? 'selected' : '' }} value='25'>25</option>
+                        <option {{ $limit == 50 ? 'selected' : '' }} value='50'>50</option>
+                        <option {{ $limit == 100 ? 'selected' : '' }} value='100'>100</option>
+                        <option {{ $limit == 200 ? 'selected' : '' }} value='200'>200</option>
+                    </select>
+                </div>
+            </form>
+            <a class="center-block btn btn-xs spin-icon outline btn-primary">
+                <span> Total : {{ $result->total() }} <i class="fa-solid fa-arrows-down-to-line"></i></span></a>
 
         </div>
-        <div class="box-body table-responsive no-padding">
-            @include('crudbooster::default.table')
+
         </div>
+        <!--end-pull-left-->
+
+
+        <br style="clear:both" />
+
+    </div>
+    <div class="box-body table-responsive no-padding">
+        @include('crudbooster::default.table')
+    </div>
     </div>
 
     @if (!is_null($post_index_html) && !empty($post_index_html))
