@@ -232,7 +232,7 @@
             @endif
             @endif
             <div class="box-tools pull-{{ cbLang('right') }}"
-            style="position: relative;margin-top: -5px;margin-right: -10px">
+            style="position: relative;">
 
             @if ($button_filter)
                 <a style="margin-top:-23px" href="javascript:void(0)" id='btn_advanced_filter'
