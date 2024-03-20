@@ -1,6 +1,7 @@
 @extends('crudbooster::admin_template')
 
 @section('content')
+
     @php
         $module = CRUDBooster::getCurrentModule();
     @endphp
@@ -78,8 +79,69 @@
     @if (!is_null($pre_index_html) && !empty($pre_index_html))
         {!! $pre_index_html !!}
     @endif
+
+
+
+
+
     <div class="box">
         <div class="box-header">
+            <div class="text-center">
+                @if ($button_filiere)
+                    @php
+                        $filiere = DB::table('filyir')->where('is_actif', '=', 1)->get()->toArray();
+                        $labela = array_column($filiere, 'code_fyl');
+                        $found_key = array_search(g('filiere'), $labela);
+                    @endphp
+
+                    <div class="icon">
+                        <div class=" hex" style="width: 51.64px;height: 60px;background:DarkGray;">
+                            <div class="hex-background" style="width: 48.24px;height: 56px;  background: white;">
+                                <div class="overlayhex">
+                                    <a href="http://ensup.local/admin/conventions" title="ALL" id="all"
+                                        class="iconhex spin-icon">
+                                        @if ($found_key)
+                                            <i class="fa {{ $filiere[$found_key]->iconfyl }} {{ strtoupper(g('filiere')) == $filiere[$found_key]->code_fyl ? ' fa-flip' : '' }}"
+                                                style="color: {{ $filiere[$found_key]->colorfyl ? $filiere[$found_key]->colorfyl : 'MediumBlue' }}"></i>
+                                        @else
+                                        <i class="fa fa-list " style="color: SteelBlue"></i>
+
+                                        @endif
+
+
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="menu">
+                            @foreach ($filiere as $ib)
+                                <li class="spread">
+                                    <div class="hex" style="width: 34.64px;height: 40px;background:DarkGray;">
+                                        <div class="hex-background"
+                                            style="width: 30.64px;height: 36px;  background: white;">
+                                            <div class="overlayhex">
+                                                <a href='{{ CRUDBooster::mainpath() . '?filiere=' . $ib->code_fyl }}'
+                                                    title="{{ $ib->code_fyl }}" id='{{ str_slug($ib->code_fyl) }}'
+                                                    class='iconhex spin-icon'>
+                                                    <i class="fa {{ $ib->iconfyl }} {{ strtoupper(g('filiere')) == $ib->iconfyl ? ' fa-flip' : '' }}"
+                                                        style="color: {{ $ib->colorfyl ? $ib->colorfyl : 'MediumBlue' }}"></i>
+
+                                                </a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
+
+
+                        </ul>
+                    </div>
+                @endif
+
+            </div>
+
             <div class="pull-{{ cbLang('left') }}">
                 @if (g('return_url'))
                     @if (in_array(App::getLocale(), ['ar', 'fa']))
@@ -112,7 +174,9 @@
                         </div>
                     @endif
                 @endif
+
                 @if (CRUDBooster::getCurrentMethod() == 'getIndex')
+
                     @if ($button_show)
                         <div class="hex" style="width: 34.64px;height: 40px;background:DarkGray;">
                             <div class="hex-background" style="width: 30.64px;height: 36px;  background: white;">
@@ -159,6 +223,7 @@
                             </div>
                         </div>
                     @endif
+
                     @if (!empty($index_button))
                         @foreach ($index_button as $ib)
                             <div class="hex" style="width: 34.64px;height: 40px;background:DarkGray;">
@@ -224,12 +289,15 @@
                         @endif
 
                     @endif
-                    <!--end-dropdown-menu-->
+
+
+
+
+                @endif <!--end-dropdown-menu-->
             </div>
             <!--end-selected-action-->
 
 
-            @endif
             <div class="box-tools pull-{{ cbLang('right') }}" style="position: relative;">
 
                 @if ($button_filter)
