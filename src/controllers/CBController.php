@@ -60,6 +60,7 @@ class CBController extends Controller
     public $index_button = [];
 
     public $button_filter = true;
+    public $button_filiere = false;
 
     public $button_export = true;
 
@@ -145,6 +146,7 @@ class CBController extends Controller
         $this->data['title_field']           = $this->title_field;
         $this->data['appname']               = CRUDBooster::getSetting('appname');
         $this->data['alerts']                = $this->alert;
+        $this->data['button_filiere']        = $this->button_filiere;
         $this->data['index_button']          = $this->index_button;
         $this->data['show_numbering']        = $this->show_numbering;
         $this->data['button_detail']         = $this->button_detail;
