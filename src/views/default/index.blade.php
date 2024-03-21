@@ -86,160 +86,173 @@
 
         <div class="box-footer">
             <div class="row">
-                <div class="col-sm-4">
-                    <div class="description-block">
-                        <div class="description-header"> 
+                <div class="col-sm-4" >
+                    <div class="description-block" style="text-align: left">
+                        <div class="description-header">
                             @if (g('return_url'))
-                            @if (in_array(App::getLocale(), ['ar', 'fa']))
-                                <div class="hex pull-left" style="width: 34.64px;height: 40px;background:DarkGray;">
-                                    <div class="hex-background" style="width: 30.64px;height: 36px;  background: white;">
-                                        <div class="overlayhex">
-                                            <a class="iconhex spin-icon" href='{{ g('return_url') }}' id='btn_show_data'
-                                                title="{{ cbLang('form_back_to_list', ['module' => CRUDBooster::getCurrentModule()->name_ar]) }}">
-                                                <span class="spin-icon">
-                                                    <i class="fa-solid fa-angles-{{ cbLang('left') }} fa-fade"
-                                                        style="color: #e01b24;"></i>
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            @else
-                                <div class="hex pull-left" style="width: 34.64px;height: 40px;background:DarkGray;">
-                                    <div class="hex-background" style="width: 30.64px;height: 36px;  background: white;">
-                                        <div class="overlayhex">
-                                            <a class="iconhex spin-icon" href='{{ g('return_url') }}' id='btn_show_data'
-                                                title=" {{ cbLang('form_back_to_list', ['module' => CRUDBooster::getCurrentModule()->name]) }}">
-                                                <span class="spin-icon">
-                                                    <i class="fa-solid fa-angles-{{ cbLang('left') }} fa-fade"
-                                                        style="color: #e01b24;"></i>
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                        @endif
-        
-                        @if (CRUDBooster::getCurrentMethod() == 'getIndex')
-        
-                            @if ($button_show)
-                                <div class="hex pull-left" style="width: 34.64px;height: 40px;background:DarkGray;">
-                                    <div class="hex-background" style="width: 30.64px;height: 36px;  background: white;">
-                                        <div class="overlayhex">
-                                            <a class="iconhex spin-icon"
-                                                href="{{ CRUDBooster::mainpath() . '?' . http_build_query(Request::all()) }}"
-                                                id='btn_show_data' title="{{ cbLang('action_show_data') }}">
-                                                <span class="spin-icon">
-                                                    <i class="fa-regular fa-eye" style="color: #1a5fb4;"></i>
-                                                </span></a>
-        
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                            @if ($button_add && CRUDBooster::isCreate())
-                                <div class="hex pull-left" style="width: 34.64px;height: 40px;background:DarkGray;">
-                                    <div class="hex-background" style="width: 30.64px;height: 36px;  background: white;">
-                                        <div class="overlayhex">
-                                            <a class="iconhex spin-icon" id='btn_add_new_data'
-                                                title="{{ cbLang('action_add_data') }}"
-                                                href="{{ CRUDBooster::mainpath('add') . '?return_url=' . urlencode(Request::fullUrl()) . '&parent_id=' . g('parent_id') . '&parent_field=' . $parent_field }}">
-                                                <span class="spin-icon">
-                                                    <i class="fa-solid fa-plus" style="color: #26a269;"></i>
-                                                </span>
-                                            </a>
-        
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                            @if ($button_export && CRUDBooster::getCurrentMethod() == 'getIndex')
-                                <div class="hex pull-left" style="width: 34.64px;height: 40px;background:DarkGray;">
-                                    <div class="hex-background" style="width: 30.64px;height: 36px;  background: white;">
-                                        <div class="overlayhex">
-                                            <a class="iconhex spin-icon" id="btn_export_data" href="javascript:void(0)"
-                                                data-url-parameter='{{ $build_query }}' title='Export Data'>
-                                                <span class="spin-icon">
-                                                    <i class="fa-solid fa-download" style="color: #e66100;"></i>
-                                                </span>
-                                            </a>
-        
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-        
-                            @if (!empty($index_button))
-                                @foreach ($index_button as $ib)
+                                @if (in_array(App::getLocale(), ['ar', 'fa']))
                                     <div class="hex" style="width: 34.64px;height: 40px;background:DarkGray;">
-                                        <div class="hex-background" style="width: 30.64px;height: 36px;  background: white;">
+                                        <div class="hex-background"
+                                            style="width: 30.64px;height: 36px;  background: white;">
                                             <div class="overlayhex">
-                                                <a href='{{ $ib['url'] }}' title="{{ $ib['label'] }}"
-                                                    id='{{ str_slug($ib['label']) }}' class='iconhex spin-icon'
-                                                    @if ($ib['onClick']) onClick='return {{ $ib['onClick'] }}' @endif
-                                                    @if ($ib['onMouseOver']) onMouseOver='return {{ $ib['onMouseOver'] }}' @endif
-                                                    @if ($ib['onMouseOut']) onMouseOut='return {{ $ib['onMouseOut'] }}' @endif
-                                                    @if ($ib['onKeyDown']) onKeyDown='return {{ $ib['onKeyDown'] }}' @endif
-                                                    @if ($ib['onLoad']) onLoad='return {{ $ib['onLoad'] }}' @endif>
-        
-                                                    @if ($ib['caption'])
-                                                        <strong> <span
-                                                                style="color:{{ !empty(g('stage')) && strtoupper(g('stage')) != $ib['caption'] ? 'DarkGray' : $ib['color'] }};">{{ $ib['caption'] }}</span>
-                                                        </strong>
-                                                    @else
-                                                        <i class="{{ $ib['icon'] }} {{ strtoupper(g('filiere')) == $ib['label'] ? ' fa-flip' : '' }}"
-                                                            style="color: {{ $ib['color'] ? $ib['color'] : 'MediumBlue' }}"></i>
-                                                    @endif
+                                                <a class="iconhex spin-icon" href='{{ g('return_url') }}'
+                                                    id='btn_show_data'
+                                                    title="{{ cbLang('form_back_to_list', ['module' => CRUDBooster::getCurrentModule()->name_ar]) }}">
+                                                    <span class="spin-icon">
+                                                        <i class="fa-solid fa-angles-{{ cbLang('left') }} fa-fade"
+                                                            style="color: #e01b24;"></i>
+                                                    </span>
                                                 </a>
-        
                                             </div>
                                         </div>
                                     </div>
-                                @endforeach
-                            @endif
-                            @if ($button_bulk_action && (($button_delete && CRUDBooster::isDelete()) || $button_selected))
-        
-                                @if ($button_delete && CRUDBooster::isDelete())
+                                @else
                                     <div class="hex" style="width: 34.64px;height: 40px;background:DarkGray;">
-                                        <div class="hex-background" style="width: 30.64px;height: 36px;  background: white;">
-                                            <div class="overlayhex selected-action">
-                                                <a class="iconhex spin-icon" href="javascript:void(0)" data-name='delete'
-                                                    title='{{ cbLang('action_delete_selected') }}'>
+                                        <div class="hex-background"
+                                            style="width: 30.64px;height: 36px;  background: white;">
+                                            <div class="overlayhex">
+                                                <a class="iconhex spin-icon" href='{{ g('return_url') }}'
+                                                    id='btn_show_data'
+                                                    title=" {{ cbLang('form_back_to_list', ['module' => CRUDBooster::getCurrentModule()->name]) }}">
                                                     <span class="spin-icon">
-                                                        <i class="fa-solid fa-trash" style="color: #e66100;"></i>
+                                                        <i class="fa-solid fa-angles-{{ cbLang('left') }} fa-fade"
+                                                            style="color: #e01b24;"></i>
                                                     </span>
                                                 </a>
-        
                                             </div>
                                         </div>
                                     </div>
                                 @endif
-                                @if ($button_selected)
-                                    @foreach ($button_selected as $button)
+                            @endif
+
+                            @if (CRUDBooster::getCurrentMethod() == 'getIndex')
+
+                                @if ($button_show)
+                                    <div class="hex" style="width: 34.64px;height: 40px;background:DarkGray;">
+                                        <div class="hex-background"
+                                            style="width: 30.64px;height: 36px;  background: white;">
+                                            <div class="overlayhex">
+                                                <a class="iconhex spin-icon"
+                                                    href="{{ CRUDBooster::mainpath() . '?' . http_build_query(Request::all()) }}"
+                                                    id='btn_show_data' title="{{ cbLang('action_show_data') }}">
+                                                    <span class="spin-icon">
+                                                        <i class="fa-regular fa-eye" style="color: #1a5fb4;"></i>
+                                                    </span></a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                                @if ($button_add && CRUDBooster::isCreate())
+                                    <div class="hex" style="width: 34.64px;height: 40px;background:DarkGray;">
+                                        <div class="hex-background"
+                                            style="width: 30.64px;height: 36px;  background: white;">
+                                            <div class="overlayhex">
+                                                <a class="iconhex spin-icon" id='btn_add_new_data'
+                                                    title="{{ cbLang('action_add_data') }}"
+                                                    href="{{ CRUDBooster::mainpath('add') . '?return_url=' . urlencode(Request::fullUrl()) . '&parent_id=' . g('parent_id') . '&parent_field=' . $parent_field }}">
+                                                    <span class="spin-icon">
+                                                        <i class="fa-solid fa-plus" style="color: #26a269;"></i>
+                                                    </span>
+                                                </a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                                @if ($button_export && CRUDBooster::getCurrentMethod() == 'getIndex')
+                                    <div class="hex" style="width: 34.64px;height: 40px;background:DarkGray;">
+                                        <div class="hex-background"
+                                            style="width: 30.64px;height: 36px;  background: white;">
+                                            <div class="overlayhex">
+                                                <a class="iconhex spin-icon" id="btn_export_data" href="javascript:void(0)"
+                                                    data-url-parameter='{{ $build_query }}' title='Export Data'>
+                                                    <span class="spin-icon">
+                                                        <i class="fa-solid fa-download" style="color: #e66100;"></i>
+                                                    </span>
+                                                </a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+
+                                @if (!empty($index_button))
+                                    @foreach ($index_button as $ib)
                                         <div class="hex" style="width: 34.64px;height: 40px;background:DarkGray;">
-                                            <div class="hex-background" style="width: 30.64px;height: 36px;  background: white;">
-                                                <div class="overlayhex selected-action">
-                                                    <a class="iconhex spin-icon" href="javascript:void(0)"
-                                                        data-name='{{ $button['name'] }}' title='{{ $button['label'] }}'>
-                                                        <span class="spin-icon">
-                                                            <i class="fa-solid fa-{{ $button['icon'] }}"
-                                                                style="color:{{ $button['color'] }};"></i>
-                                                        </span>
+                                            <div class="hex-background"
+                                                style="width: 30.64px;height: 36px;  background: white;">
+                                                <div class="overlayhex">
+                                                    <a href='{{ $ib['url'] }}' title="{{ $ib['label'] }}"
+                                                        id='{{ str_slug($ib['label']) }}' class='iconhex spin-icon'
+                                                        @if ($ib['onClick']) onClick='return {{ $ib['onClick'] }}' @endif
+                                                        @if ($ib['onMouseOver']) onMouseOver='return {{ $ib['onMouseOver'] }}' @endif
+                                                        @if ($ib['onMouseOut']) onMouseOut='return {{ $ib['onMouseOut'] }}' @endif
+                                                        @if ($ib['onKeyDown']) onKeyDown='return {{ $ib['onKeyDown'] }}' @endif
+                                                        @if ($ib['onLoad']) onLoad='return {{ $ib['onLoad'] }}' @endif>
+
+                                                        @if ($ib['caption'])
+                                                            <strong> <span
+                                                                    style="color:{{ !empty(g('stage')) && strtoupper(g('stage')) != $ib['caption'] ? 'DarkGray' : $ib['color'] }};">{{ $ib['caption'] }}</span>
+                                                            </strong>
+                                                        @else
+                                                            <i class="{{ $ib['icon'] }} {{ strtoupper(g('filiere')) == $ib['label'] ? ' fa-flip' : '' }}"
+                                                                style="color: {{ $ib['color'] ? $ib['color'] : 'MediumBlue' }}"></i>
+                                                        @endif
                                                     </a>
-        
+
                                                 </div>
                                             </div>
                                         </div>
                                     @endforeach
                                 @endif
-        
-                            @endif
-        
-        
-        
-        
-                        @endif <!--end-dropdown-menu--></div>
+                                @if ($button_bulk_action && (($button_delete && CRUDBooster::isDelete()) || $button_selected))
+
+                                    @if ($button_delete && CRUDBooster::isDelete())
+                                        <div class="hex" style="width: 34.64px;height: 40px;background:DarkGray;">
+                                            <div class="hex-background"
+                                                style="width: 30.64px;height: 36px;  background: white;">
+                                                <div class="overlayhex selected-action">
+                                                    <a class="iconhex spin-icon" href="javascript:void(0)"
+                                                        data-name='delete'
+                                                        title='{{ cbLang('action_delete_selected') }}'>
+                                                        <span class="spin-icon">
+                                                            <i class="fa-solid fa-trash" style="color: #e66100;"></i>
+                                                        </span>
+                                                    </a>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if ($button_selected)
+                                        @foreach ($button_selected as $button)
+                                            <div class="hex" style="width: 34.64px;height: 40px;background:DarkGray;">
+                                                <div class="hex-background"
+                                                    style="width: 30.64px;height: 36px;  background: white;">
+                                                    <div class="overlayhex selected-action">
+                                                        <a class="iconhex spin-icon" href="javascript:void(0)"
+                                                            data-name='{{ $button['name'] }}'
+                                                            title='{{ $button['label'] }}'>
+                                                            <span class="spin-icon">
+                                                                <i class="fa-solid fa-{{ $button['icon'] }}"
+                                                                    style="color:{{ $button['color'] }};"></i>
+                                                            </span>
+                                                        </a>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @endif
+
+                                @endif
+
+
+
+
+                            @endif <!--end-dropdown-menu-->
+                        </div>
                     </div>
 
                 </div>
@@ -273,6 +286,21 @@
                                     </div>
                                 </div>
                                 <ul class="menu">
+                                    <li class="spread">
+                                        <div class="hex" style="width: 34.64px;height: 40px;background:DarkGray;">
+                                            <div class="hex-background"
+                                                style="width: 30.64px;height: 36px;  background: white;">
+                                                <div class="overlayhex">
+                                                    <a href='{{ CRUDBooster::mainpath() }}' title="ALL"
+                                                        class='iconhex spin-icon'>
+                                                        <i class="fa fa-eye" style="color: #1a5fb4;"></i>
+
+                                                    </a>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
                                     @foreach ($filiere as $ib)
                                         <li class="spread">
                                             <div class="hex" style="width: 34.64px;height: 40px;background:DarkGray;">
@@ -280,8 +308,8 @@
                                                     style="width: 30.64px;height: 36px;  background: white;">
                                                     <div class="overlayhex">
                                                         <a href='{{ CRUDBooster::mainpath() . '?filiere=' . $ib->code_fyl }}'
-                                                            title="{{ $ib->code_fyl }}" id='{{ str_slug($ib->code_fyl) }}'
-                                                            class='iconhex spin-icon'>
+                                                            title="{{ $ib->code_fyl }}"
+                                                            id='{{ str_slug($ib->code_fyl) }}' class='iconhex spin-icon'>
                                                             <i class="fa {{ $ib->iconfyl }} {{ strtoupper(g('filiere')) == $ib->iconfyl ? ' fa-flip' : '' }}"
                                                                 style="color: {{ $ib->colorfyl ? $ib->colorfyl : 'MediumBlue' }}"></i>
 
@@ -302,7 +330,7 @@
                 </div>
 
                 <div class="col-sm-4">
-                    <div class="description-block">
+                    <div class="description-block" style="text-align: left">
                         <div class="description-header ">
                             @if ($button_filter)
                                 <a style="margin-top:-23px" href="javascript:void(0)" id='btn_advanced_filter'
@@ -342,8 +370,8 @@
                                 action='{{ Request::url() }}'>
                                 {!! CRUDBooster::getUrlParameters(['limit']) !!}
                                 <div class="input-group">
-                                    <select onchange="$('#form-limit-paging').submit()" name='limit' style="width: 56px;"
-                                        class='form-control input-sm'>
+                                    <select onchange="$('#form-limit-paging').submit()" name='limit'
+                                        style="width: 56px;" class='form-control input-sm'>
                                         <option {{ $limit == 5 ? 'selected' : '' }} value='5'>5</option>
                                         <option {{ $limit == 10 ? 'selected' : '' }} value='10'>10</option>
                                         <option {{ $limit == 20 ? 'selected' : '' }} value='20'>20</option>
