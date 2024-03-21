@@ -164,7 +164,7 @@ class CBController extends Controller
         $this->data['button_import']         = $this->button_import;
         $this->data['button_action_width']   = $this->button_action_width;
         $this->data['button_selected']       = $this->button_selected;
-        $this->data['button_filiere']       = $this->button_filiere ;
+        $this->data['button_filiere']        = $this->button_filiere ;
         $this->data['index_statistic']       = $this->index_statistic;
         $this->data['index_additional_view'] = $this->index_additional_view;
         $this->data['table_row_color']       = $this->table_row_color;
