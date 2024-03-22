@@ -83,29 +83,25 @@
     <div class="fab-container">
         <div class="fab shadow">
           <div class="fab-content">
-            <i class="fa-solid fa-headset"></i>
+            <i class="fa-solid fa-headset fa-2xl" style="color:white;"></i>
           </div>
         </div>
         <div class="sub-button shadow">
-          <a href="google.com" target="_blank">
-            <span class="material-icons">phone</span>
+          <a href="google.com" title="google" target="_blank">
+          <i class="fa-solid fa-headset fa-lg"  style="color:white;"></i>
           </a>
         </div>
-        <div class="sub-button shadow">
-          <a href="google.com" target="_blank">
-            <span class="material-icons">mail_outline</span>
+        @if ( !empty($index_button))
+        @foreach ($index_button as $ib)
+        @if($ib['help'])
+          <div class="sub-button shadow" style="background-color: {{$ib['color']}};">
+          <a href="{{$ib['url']}}" title="{{$ib['label']}}" >
+          <i class="{{$ib['icon']}}"  style="color:white;"></i>
           </a>
         </div>
-        <div class="sub-button shadow">
-          <a href="google.com" target="_blank">
-            <span class="material-icons">language</span>
-          </a>
-        </div>
-        <div class="sub-button shadow">
-          <a href="google.com" target="_blank">
-            <span class="material-icons">help_outline</span>
-          </a>
-        </div>
+        @endif
+        @endforeach
+        @endif
       </div>
     <div class="box">
 
@@ -312,21 +308,7 @@
                                     </div>
                                 </div>
                                 <ul class="menu">
-                                    <li class="spread">
-                                        <div class="hex" style="width: 34.64px;height: 40px;background:DarkGray;">
-                                            <div class="hex-background"
-                                                style="width: 30.64px;height: 36px;  background: white;">
-                                                <div class="overlayhex">
-                                                    <a href='{{ CRUDBooster::mainpath() }}' title="ALL"
-                                                        class='iconhex spin-icon'>
-                                                        <i class="fa fa-eye" style="color: #1a5fb4;"></i>
 
-                                                    </a>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
                                     @foreach ($filiere as $ib)
                                         <li class="spread">
                                             <div class="hex" style="width: 34.64px;height: 40px;background:DarkGray;">
