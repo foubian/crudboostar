@@ -4,6 +4,7 @@
 
     @php
         $module = CRUDBooster::getCurrentModule();
+        //dd($index_button);
     @endphp
     @if ($index_statistic)
         <div id='box-statistic' class='row'>
@@ -23,92 +24,55 @@
         </div>
     @endif
 
-    @if ($is_child == true)
-        @if (g('parent_table') == '')
-            {{ CRUDBooster::redirect(Request::server('HTTP_REFERER'), cbLang('denied_access'), 'danger') }}
-        @else
-            @if ($module->path == 'mod4stationz')
-                @include('crudbooster::default.stazions')
-            @elseif ($module->path == 'g4modulze')
-                @include('crudbooster::default.g4modulze')
-            @elseif ($module->path == 'g4mod_details')
-                @include('crudbooster::default.g4modetail')
-            @elseif ($module->path == 'modules')
-                @include('crudbooster::default.cedules')
-            @elseif ($module->path == 'cedules')
-                @include('crudbooster::default.schema')
-            @elseif($parent_table)
-                <div class="box box-default">
-                    <div class="box-body table-responsive no-padding">
-                        <table class='table table-bordered'>
-                            <tbody>
-                                <tr class='active'>
-                                    <td colspan="2"><strong><i class='fa fa-bars'></i>
-                                            {{ ucwords(urldecode(g('label'))) }}</strong></td>
-                                </tr>
-
-                                @foreach (explode(',', urldecode(g('parent_columns'))) as $c)
-                                    <tr>
-                                        <td width="25%"><strong>
-                                                @if (urldecode(g('parent_columns_alias')))
-                                                    {{ explode(',', urldecode(g('parent_columns_alias')))[$loop->index] }}
-                                                @else
-                                                    {{ ucwords(str_replace('_', ' ', $c)) }}
-                                                @endif
-                                            </strong></td>
-                                        <td> {{ $parent_table->$c }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            @endif
-        @endif
-    @elseif ($module->path == 'comunz' && g('parent_id'))
-        @include('crudbooster::default.provinz')
-    @elseif ($module->path == 'participants' && g('parent_id'))
-        @if (g('parent_table') == 'comunz')
-            @include('crudbooster::default.comunz')
-        @elseif (g('parent_table') == 'tabtitre')
-            @include('crudbooster::default.titre')
-        @endif
-    @elseif ($module->path == 'formed' && g('mid'))
-        @include('crudbooster::default.module')
-    @endif
     @if (!is_null($pre_index_html) && !empty($pre_index_html))
         {!! $pre_index_html !!}
     @endif
 
-    <div class="fab-container">
-        <div class="fab shadow">
-          <div class="fab-content">
-            <i class="fa-solid fa-headset fa-2xl" style="color:white;"></i>
-          </div>
+    @if ($index_button)
+    <div class="box box-primary">
+
+        <div class="box-header">
+            <i class="fa fa-edit"></i>
+            <h3 class="box-title">Actions</h3>
         </div>
-        <div class="sub-button shadow">
-          <a href="google.com" title="google" target="_blank">
-          <i class="fa-solid fa-headset fa-lg"  style="color:white;"></i>
-          </a>
+        <div class="box-footer">
+            <div class="row">
+                <div class="col-sm-12">
+                <div class="description-block">
+
+            @foreach ($index_button as $ib)
+                @if ($ib['help'])
+                <a class="dedcription-btn" href="{{ $ib['url'] }}" title="{{ $ib['label'] }}"  style="color: {{ $ib['color'] }};">
+                            <span class="name-descripeion">{{ $ib['label'] }}</span>
+                            <div class="btn-icon" style="background-color: {{ $ib['color'] }};">
+                            <i class="{{ $ib['icon'] }}" style="color:white;"></i>
+                            </div>
+                        </a>
+                    
+                @endif
+            @endforeach
+            </div>
+
+            </div>
+
+
+            </div>
+
         </div>
-        @if ( !empty($index_button))
-        @foreach ($index_button as $ib)
-        @if($ib['help'])
-          <div class="sub-button shadow" style="background-color: {{$ib['color']}};">
-          <a href="{{$ib['url']}}" title="{{$ib['label']}}" >
-          <i class="{{$ib['icon']}}"  style="color:white;"></i>
-          </a>
-        </div>
+    </div>
         @endif
-        @endforeach
-        @endif
-      </div>
+
+    
+                  
+                  
+
+                
     <div class="box">
 
 
         <div class="box-footer">
             <div class="row">
-                <div class="col-sm-4" >
+                <div class="col-sm-4">
                     <div class="description-block" style="text-align: left">
                         <div class="description-header">
                             @if (g('return_url'))
@@ -201,6 +165,7 @@
 
                                 @if (!empty($index_button))
                                     @foreach ($index_button as $ib)
+                                    @if (!$ib['help'])
                                         <div class="hex" style="width: 34.64px;height: 40px;background:DarkGray;">
                                             <div class="hex-background"
                                                 style="width: 30.64px;height: 36px;  background: white;">
@@ -226,6 +191,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        @endif
                                     @endforeach
                                 @endif
                                 @if ($button_bulk_action && (($button_delete && CRUDBooster::isDelete()) || $button_selected))
@@ -418,5 +384,27 @@
     @if (!is_null($post_index_html) && !empty($post_index_html))
         {!! $post_index_html !!}
     @endif
-
+    <div class="fab-container">
+        <div class="fab shadow">
+            <div class="fab-content">
+                <i class="fa-solid fa-headset fa-2xl" style="color:white;"></i>
+            </div>
+        </div>
+        <div class="sub-button shadow">
+            <a href="{{ CRUDBooster::adminpath('tickets/add') }}" title="google" target="_blank">
+                <i class="fa-solid fa-headset fa-lg" style="color:white;"></i>
+            </a>
+        </div>
+        @if (!empty($index_button))
+            @foreach ($index_button as $ib)
+                @if ($ib['help'])
+                    <div class="sub-button shadow" style="background-color: {{ $ib['color'] }};">
+                        <a href="{{ $ib['url'] }}" title="{{ $ib['label'] }}">
+                            <i class="{{ $ib['icon'] }}" style="color:white;"></i>
+                        </a>
+                    </div>
+                @endif
+            @endforeach
+        @endif
+    </div>
 @endsection
