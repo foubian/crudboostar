@@ -119,7 +119,7 @@
                                             style="width: 30.64px;height: 36px;  background: white;">
                                             <div class="overlayhex">
                                                 <a class="iconhex spin-icon"
-                                                    href="{{ CRUDBooster::mainpath() . '?' . http_build_query(Request::all()) }}"
+                                                    href="{{ CRUDBooster::mainpath()}}"
                                                     id='btn_show_data' title="{{ cbLang('action_show_data') }}">
                                                     <span class="spin-icon">
                                                         <i class="fa-regular fa-eye" style="color: #1a5fb4;"></i>
